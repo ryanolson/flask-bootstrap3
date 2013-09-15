@@ -1,0 +1,2 @@
+recursive-include flask_bootstrap3/static *
+recursive-include flask_bootstrap3/templates *

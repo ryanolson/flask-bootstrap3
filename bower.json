@@ -1,0 +1,25 @@
+{
+  "name": "flask-bootstrap3",
+  "version": "3.0.0.1",
+  "authors": [
+    "Ryan Olson <rmolson@gmail.com>"
+  ],
+  "keywords": [
+    "flask",
+    "boostrap"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.0.0",
+    "jquery": "1.10.2",
+    "normalize-css": "~2.1.3"
+  }
+}
