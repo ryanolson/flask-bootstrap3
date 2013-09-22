@@ -1,0 +1,14 @@
+
+{% macro simple_panel(heading=None, footer=None, category=None) %}
+<div class="panel {% if category %}panel-{{category}}{% endif %}">
+  {% if heading %}
+  <div class="panel-heading">{{heading}}</div>
+  {% endif %}
+  <div class="panel-body">
+    {{ caller() }}
+  </div>
+  {% if footer %}
+  <div class="panel-footer">{{footer}}</div>
+  {% endif %}
+</div>
+{% endmacro %}
