@@ -23,6 +23,7 @@
     "normalize-css": "",
     "respond": "",
     "html5shiv": "",
-    "modernizr": ""
+    "modernizr": "",
+    "font-awesome": ""
   }
 }
