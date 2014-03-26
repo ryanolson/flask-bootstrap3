@@ -41,7 +41,9 @@
     {% include "bootstrap/includes/upgrade_browser.html" ignore missing %}
 
     <div id='wrap'>
-        {% block topbar %}
+        {% block navbar %}
+            {% block topbar %}
+            {% endblock %}
         {% endblock %}
 
         {% block flash_message %}
@@ -50,7 +52,11 @@
                 <div class="container">
                     <div id='flash_message_container'>
                         {% for category, msg in messages %}
+                            {%- if category == 'error' %}
+                            <div class="alert alert-danger">
+                            {%- else %}
                             <div class="alert alert-{{ category }}">
+                            {%- endif %}
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 {{ msg }}
                             </div>
