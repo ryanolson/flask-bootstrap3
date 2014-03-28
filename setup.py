@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='Flask-Bootstrap3',
-    version='3.1.1.1',
+    version='3.1.1.2',
     author="Ryan Olson",
     author_email="rmolson@gmail.com",
     url="https://github.com/ryanolson/flask-bootstrap3",
