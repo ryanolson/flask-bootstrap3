@@ -1,3 +1,4 @@
+{% import "bootstrap/macros.html" as bootstrap %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -39,7 +40,8 @@
 </head>
 <body>
     {% include "bootstrap/includes/upgrade_browser.html" ignore missing %}
-
+    
+    {% block body_content %}
     <div id='wrap'>
         {% block navbar %}
             {% block topbar %}
@@ -47,24 +49,9 @@
         {% endblock %}
 
         {% block flash_message %}
-            {% with messages = get_flashed_messages(with_categories=True) %}
-                {% if messages %}
-                <div class="container">
-                    <div id='flash_message_container'>
-                        {% for category, msg in messages %}
-                            {%- if category == 'error' %}
-                            <div class="alert alert-danger">
-                            {%- else %}
-                            <div class="alert alert-{{ category }}">
-                            {%- endif %}
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ msg }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endif %}
-            {% endwith %}
+        <div class="container">
+            {{ bootstrap.flash_messages() }}
+        </div>
         {% endblock %}
 
         {% block container %}
@@ -82,6 +69,8 @@
     </div>
 
     {% block footer %}
+    {% endblock %}
+
     {% endblock %}
 
     {% block js_base %}
