@@ -1,4 +1,5 @@
 {% import "bootstrap/macros.html" as bootstrap %}
+{% if "X-PJAX" not in request.headers %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -7,10 +8,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% block title %}{{ title }}{% endblock %}</title>
     <meta name="description" content="{{ description }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endif %}
 
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+
+{% if "X-PJAX" not in request.headers %}
     {% block favicon %}
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('bootstrap.static', filename='ico/apple-touch-icon-144-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('bootstrap.static', filename='ico/apple-touch-icon-114-precomposed.png') }}">
@@ -39,51 +43,56 @@
     {% endblock %}
 </head>
 <body>
-    {% include "bootstrap/includes/upgrade_browser.html" ignore missing %}
-    
-    {% block body_content %}
-    <div id='wrap'>
-        {% block navbar %}
-            {% block topbar %}
-            {% endblock %}
-        {% endblock %}
+{% endif %}
+{% block body_content %}
+{% if "X-PJAX" not in request.headers %}
+{% include "bootstrap/includes/upgrade_browser.html" ignore missing %}
+
+<div id='wrap'>
+    {% block navbar %}
+    {% include "includes/navbar.html" ignore missing %}
+    {% endblock %}
+
+    <div id="pjax-content">
+{% endif %}
 
         {% block flash_message %}
-        <div class="container">
+        <div class="container" id="flash-message-container">
             {{ bootstrap.flash_messages() }}
-        </div>
+        </div><!-- /div#flash-message-container -->
         {% endblock %}
 
         {% block container %}
-        <div class="container">
-
-            {% block top %}
-            {% endblock %}
-
+        <div class="container" id="body-container">
             {% block body %}
             {% endblock %}
-
-        </div>
+        </div><!-- /div#body-container -->
         {% endblock %}
-        <div id="push"></div>
-    </div>
+    
+{% if "X-PJAX" not in request.headers %}
+    </div><!-- /div#pjax-content -->
+    <div id="push"></div>
+</div><!-- /div#wrap -->
 
-    {% block footer %}
-    {% endblock %}
+{% block footer %}{% endblock %}
+{% endif %}
+{% endblock %}
 
-    {% endblock %}
+{% if "X-PJAX" not in request.headers %}
+{% block js_base %}
+<script src="{{ url_for('bootstrap.static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('bootstrap.static', filename='js/plugins.js') }}"></script>
+<script src="{{ url_for('bootstrap.static', filename='js/bootstrap.min.js') }}"></script>
+{% endblock %}
 
-    {% block js_base %}
-    <script src="{{ url_for('bootstrap.static', filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('bootstrap.static', filename='js/plugins.js') }}"></script>
-    <script src="{{ url_for('bootstrap.static', filename='js/bootstrap.min.js') }}"></script>
-    {% endblock %}
+{% block js_btm %}
+{% block js %}
+{% endblock %}
+{% endblock %}
 
-    {% block js_btm %}
-    {% endblock %}
-
-    {% block google_analytics %}
-    {% include "includes/google_analytics.html" ignore missing %}
-    {% endblock %}
+{% block google_analytics %}
+{% include "includes/google_analytics.html" ignore missing %}
+{% endblock %}
 </body>
 </html>
+{% endif %}

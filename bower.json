@@ -20,6 +20,7 @@
   "dependencies": {
     "bootstrap": "~3",
     "jquery": "",
+    "jquery-pjax": "",
     "normalize-css": "",
     "respond": "",
     "html5shiv": "",
